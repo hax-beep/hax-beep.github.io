@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - MONETA 2025</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="js/navigation.js" defer></script>
+    <style>
+        .register-btn {
+            background: linear-gradient(135deg, #4a90e2, #1a5f9a);
+            color: white !important;
+            font-weight: 600;
+            padding: 0.5rem 1.5rem !important;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+            background: linear-gradient(135deg, #5a9cec, #2a6faa);
+        }
+        @media (max-width: 992px) {
+            .register-btn {
+                margin-top: 1rem;
+                width: 100%;
+                text-align: center;
+                display: block;
+            }
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #4a90e2, #1a5f9a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section-divider {
+            background: linear-gradient(90deg, transparent, #4a90e2, transparent);
+            height: 3px;
+            width: 100px;
+            margin: 0 auto 2rem auto;
+        }
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .event-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+        .event-card-gradient {
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+        }
+        .event-image {
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+        }
+        .event-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(2px);
+        }
+        .event-image span {
+            font-size: 4.5rem;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+            position: relative;
+            z-index: 1;
+        }
+        .event-details {
+            padding: 2rem;
+            position: relative;
+            background: white;
+        }
+        .event-details h3 {
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        .event-category {
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .event-details p {
+            margin-top: 1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+        .event-action {
+            margin-top: 1.5rem;
+        }
+        .event-action span {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .event-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        .event-card:hover .event-image span {
+            transform: scale(1.1);
+            transition: transform 0.3s ease;
+        }
+        @media (max-width: 768px) {
+            .event-card {
+                margin: 0 auto;
+                max-width: 350px;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        .events-section {
+            padding: 4rem 0;
+            background: #f8fafc;
+        }
+        .events-section:nth-child(even) {
+            background: white;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <!-- Navigation will be inserted here by navigation.js -->
+    </header>
+    <div class="ticker-bar">
+        <div class="ticker-content">
+            <!-- Add logo emoji or image in the sponsor-logo span -->
+            <span class="sponsor-item">
+                <img src="images/sponsors/nse logo.jpeg" alt="NSE" class="sponsor-logo">
+                <span class="sponsor-name">NSE</span>
+            </span>
+            <span class="sponsor-item">
+                <img src="images/sponsors/Samco logo.png" alt="SAMCO" class="sponsor-logo">
+                <span class="sponsor-name">SAMCO</span>
+            </span>
+            <span class="sponsor-item">
+                <img src="images/sponsors/CEAT logo.png" alt="CEAT" class="sponsor-logo">
+                <span class="sponsor-name">CEAT</span>
+            </span>
+            <span class="sponsor-item">
+                <img src="images/sponsors/Mahindra_Finance_Logo.png" alt="Mahindra Finance" class="sponsor-logo">
+                <span class="sponsor-name">Mahindra Finance</span>
+            </span>
+            <span class="sponsor-item">
+                <img src="images/sponsors/IBS logo.png" alt="IBS" class="sponsor-logo">
+                <span class="sponsor-name">IBS</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 6rem 0; text-align: center;">
+        <div class="container">
+            <h1 style="font-size: 3.5rem; font-weight: 700; margin-bottom: 1rem;">MONETA Events 2025</h1>
+            <p style="font-size: 1.3rem; opacity: 0.9; max-width: 800px; margin: 0 auto;">Explore our comprehensive lineup of financial events designed for undergraduate and postgraduate students</p>
+        </div>
+    </section>
+
+    <!-- Undergraduate Events Section -->
+    <section class="events-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" style="background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Undergraduate Events</h2>
+                <div class="section-divider" style="background: linear-gradient(90deg, transparent, #667eea, transparent);"></div>
+                <p style="font-size: 1.2rem; color: #555; max-width: 800px; margin: 0 auto;">Exciting events tailored for undergraduate students to explore the world of finance</p>
+            </div>
+
+            <div class="events-grid">
+                <!-- Event 1: The Deal That Never Was -->
+                <div class="event-card" style="--gradient-start: #667eea; --gradient-end: #764ba2;">
+                    <div class="event-card-gradient"></div>
+                    <div class="event-image">
+                        <span>🤝</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>The Deal That Never Was</h3>
+                        <span class="event-category" style="color: #667eea;">The Deal that never was</span>
+                        <p>An immersive event focused on merger and acquisition strategies, deal structuring, and company valuation. Experience the high-stakes world of M&A negotiations and learn to analyze potential deals like seasoned investment bankers.</p>
+                        <div class="event-action">
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLScV2-_e_VVeyN2a-bCxlYr8MtXYoULXI-ku4g0VfKHQeKNgjA/viewform?usp=publish-editor" target="_blank" class="register-btn">Register Now →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 2: BULLRING -->
+                <div class="event-card" style="--gradient-start: #f093fb; --gradient-end: #f5576c;">
+                    <div class="event-card-gradient"></div>
+                    <div class="event-image">
+                        <span>🐂</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>BULLRING</h3>
+                        <span class="event-category" style="color: #f093fb;">Trading Competition</span>
+                        <p>Step into the adrenaline-pumping world of stock trading. Test your market instincts, develop trading strategies, and compete in real-time market simulations to prove you have what it takes to be a market bull.</p>
+                        <div class="event-action">
+                            <a href="https://forms.gle/pkDNnPc697jHykFW7" target="_blank" class="register-btn">Register Now →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 3: Beyond D Street -->
+                <div class="event-card" style="--gradient-start: #fa709a; --gradient-end: #fee140;">
+                    <div class="event-card-gradient"></div>
+                    <div class="event-image">
+                        <span>📈</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Beyond D Street</h3>
+                        <span class="event-category" style="color: #fa709a;">Equity Research</span>
+                        <p>Dive deep into company analysis, financial modeling, and investment thesis development. Learn how professional equity researchers evaluate companies and make buy/sell recommendations in this comprehensive workshop.</p>
+                        <div class="event-action">
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdd3OxwuvgTRiMcW3MXH5pDrILaqynxpemrw2khmjgbffZ-XA/viewform?usp=publish-editor" target="_blank" class="register-btn">Register Now →</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Event 5: Fund Maverick -->
+                <div class="event-card" style="--gradient-start: #8e44ad; --gradient-end: #9b59b6;">
+                    <div class="event-card-gradient"></div>
+                    <div class="event-image">
+                        <span>📊</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Fund Maverick</h3>
+                        <span class="event-category" style="color: #8e44ad;">Mutual Funds</span>
+                        <p>This event focuses on the world of mutual funds, one of the most popular and accessible investment options today. It aims to highlight how mutual funds work, how they help in diversifying investments, and why they play a key role in personal finance.</p>
+                        <div class="event-action">
+                            <a href="#" target="_blank" class="register-btn">Coming Soon</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 6: The diplomats Arena -->
+                <div class="event-card" style="--gradient-start: #27ae60; --gradient-end: #2ecc71;">
+                    <div class="event-card-gradient"></div>
+                    <div class="event-image">
+                        <span>🤝</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>The diplomats Arena</h3>
+                        <span class="event-category" style="color: #27ae60;">MUN</span>
+                        <p>Model United Nations (MUN) simulation with a unique flair of finance. Combine diplomatic skills with financial acumen in this innovative fusion of international relations and economic policy.</p>
+                        <div class="event-action">
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSd-Y2GhrsNuSP-tA9A3Yo7AfSqXVmdB7wEs1tpxnPhXVOuf8w/viewform?usp=publish-editor" target="_blank" class="register-btn">Register Now →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 7: CodeCrux -->
+                <div class="event-card" style="--gradient-start: #2c3e50; --gradient-end: #34495e;">
+                    <div class="event-card-gradient"></div>
+                    <div class="event-image">
+                        <span>💻</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>CodeCrux</h3>
+                        <span class="event-category" style="color: #2c3e50;">FinTech</span>
+                        <p>Coding & Fintech pivot of MONETA® - where technology meets finance. Develop innovative solutions for financial challenges using cutting-edge technology and programming skills.</p>
+                        <div class="event-action">
+                            <a href="https://forms.gle/HPJFTqkD8hNVYB4T9" target="_blank" class="register-btn">Register Now →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 8: A Study in Scarlet -->
+                <div class="event-card" style="--gradient-start: #c0392b; --gradient-end: #e74c3c;">
+                    <div class="event-card-gradient"></div>
+                    <div class="event-image">
+                        <span>🕵️</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>A Study in Scarlet</h3>
+                        <span class="event-category" style="color: #c0392b;">Awareness</span>
+                        <p>Interactive event combining escape room and role-playing to enhance financial literacy and fraud awareness. Learn to identify and prevent financial crimes through immersive scenarios.</p>
+                        <div class="event-action">
+                            <a href="https://forms.gle/2xw4HRtAB17bRzuR7" target="_blank" class="register-btn">Register Now →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 9: Big Brand Theory -->
+                <div class="event-card" style="--gradient-start: #16a085; --gradient-end: #1abc9c;">
+                    <div class="event-card-gradient"></div>
+                    <div class="event-image">
+                        <span>🎯</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Big Brand Theory</h3>
+                        <span class="event-category" style="color: #16a085;">Marketing</span>
+                        <p>Develop and implement branding and marketing strategies to create and promote successful brands. Learn the art of building brand equity and market positioning in competitive landscapes.</p>
+                        <div class="event-action">
+                            <a href="https://forms.gle/V8L1a2Mpo3yv67CG6" target="_blank" class="register-btn">Register Now →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 10: The Corporate Verdict -->
+                <div class="event-card" style="--gradient-start: #7f8c8d; --gradient-end: #95a5a6;">
+                    <div class="event-card-gradient"></div>
+                    <div class="event-image">
+                        <span>⚖️</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>The Corporate Verdict</h3>
+                        <span class="event-category" style="color: #7f8c8d;">Legal & Governance</span>
+                        <p>Focuses on legal considerations in financial processes and establishing good corporate governance. Understand the regulatory framework and compliance requirements in modern finance.</p>
+                        <div class="event-action">
+                            <a href="https://forms.gle/iXv4zHwkSHwjCLbv6" target="_blank" class="register-btn">Register Now →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 11: The Biases in Balance -->
+                <div class="event-card" style="--gradient-start: #8e44ad; --gradient-end: #9b59b6;">
+                    <div class="event-card-gradient"></div>
+                    <div class="event-image">
+                        <span>🧠</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>The Biases in Balance</h3>
+                        <span class="event-category" style="color: #8e44ad;">Behavioral Finance</span>
+                        <p>Explores how brands attract audiences and how companies profit through behavioral economics. Understand the psychological factors that influence financial decision-making.</p>
+                        <div class="event-action">
+                            <a href="https://forms.gle/k9HmkbrdHf9AbYpv9" target="_blank" class="register-btn">Register Now →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 12: BankQuest -->
+                <div class="event-card" style="--gradient-start: #27ae60; --gradient-end: #2ecc71;">
+                    <div class="event-card-gradient"></div>
+                    <div class="event-image">
+                        <span>🏦</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>BankQuest</h3>
+                        <span class="event-category" style="color: #27ae60;">Banking</span>
+                        <p>Event designed to explain the intricacies of the banking and insurance industry. Learn about risk management, credit analysis, and the fundamentals of financial intermediation.</p>
+                        <div class="event-action">
+                            <a href="https://forms.gle/FPvc1hwr6efTxqZv5" target="_blank" class="register-btn">Register Now →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 13: Shipscape -->
+                <div class="event-card" style="--gradient-start: #d35400; --gradient-end: #e67e22;">
+                    <div class="event-card-gradient"></div>
+                    <div class="event-image">
+                        <span>🚢</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Shipscape</h3>
+                        <span class="event-category" style="color: #d35400;">Logistics</span>
+                        <p>Event focused on creating cost and time efficient supply chains for product delivery. Explore the financial aspects of logistics and supply chain management in global trade.</p>
+                        <div class="event-action">
+                            <a href="https://forms.gle/R6aPnUBN4QJzrHWa6" target="_blank" class="register-btn">Register Now →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 14: Production Paradox -->
+                <div class="event-card" style="--gradient-start: #9b59b6; --gradient-end: #8e44ad;">
+                    <div class="event-card-gradient"></div>
+                    <div class="event-image">
+                        <span>🏭</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Production Paradox</h3>
+                        <span class="event-category" style="color: #9b59b6;">Operations</span>
+                        <p>Explore the intricate balance between production efficiency and quality in modern manufacturing. Learn about lean production, process optimization, and how to solve real-world operational challenges in manufacturing environments.</p>
+                        <div class="event-action">
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSd9U6f4lKA1Ow5HZynB-J6J76JqKM8AZzih7EkmonU2Kd5ehg/viewform?usp=publish-editor" target="_blank" class="register-btn">Register Now →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Postgraduate Events Section -->
+    <section class="events-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" style="background: linear-gradient(135deg, #4facfe, #00f2fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Postgraduate Events</h2>
+                <div class="section-divider" style="background: linear-gradient(90deg, transparent, #4facfe, transparent);"></div>
+                <p style="font-size: 1.2rem; color: #555; max-width: 800px; margin: 0 auto;">Advanced challenges designed for postgraduate students pursuing excellence in finance</p>
+            </div>
+
+            <div class="events-grid">
+                <!-- Event 1: BULLRING (PG) -->
+                <div class="event-card" style="--gradient-start: #4facfe; --gradient-end: #00f2fe;">
+                    <div class="event-card-gradient"></div>
+                    <div class="event-image">
+                        <span>🐂</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>BULLRING</h3>
+                        <span class="event-category" style="color: #4facfe;">Advanced Trading</span>
+                        <p>Advanced trading competition for postgraduate students featuring complex derivatives, algorithmic trading strategies, and sophisticated risk management techniques. Compete at the highest level of financial trading.</p>
+                        <div class="event-action">
+                            <a href="https://forms.gle/3XQrqq3vAB2MK3zw8" target="_blank" class="register-btn">Register Now →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 2: Beyond D Street (PG) -->
+                <div class="event-card" style="--gradient-start: #43e97b; --gradient-end: #38f9d7;">
+                    <div class="event-card-gradient"></div>
+                    <div class="event-image">
+                        <span>📈</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Beyond D Street</h3>
+                        <span class="event-category" style="color: #43e97b;">Advanced Markets</span>
+                        <p>Postgraduate-level exploration of cutting-edge financial markets, including cryptocurrency, sustainable finance, ESG investing, and emerging market opportunities shaping the future of finance.</p>
+                        <div class="event-action">
+                            <a href="https://forms.gle/HSd1bJe5MomoLZBZ9" target="_blank" class="register-btn">Register Now →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 3: Consulting Odyssey -->
+                <div class="event-card" style="--gradient-start: #ff6b6b; --gradient-end: #feca57;">
+                    <div class="event-card-gradient"></div>
+                    <div class="event-image">
+                        <span>💼</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Consulting Odyssey</h3>
+                        <span class="event-category" style="color: #ff6b6b;">Management Consulting</span>
+                        <p>Solve real-world business challenges faced by top companies. Develop strategic recommendations, present to industry experts, and experience the life of a management consultant in this intensive case study competition.</p>
+                        <div class="event-action">
+                            <a href="https://forms.gle/fBVCEM9DVrijSegF8" target="_blank" class="register-btn">Register Now →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 4: Marketeer's Melee -->
+                <div class="event-card" style="--gradient-start: #a29bfe; --gradient-end: #6c5ce7;">
+                    <div class="event-card-gradient"></div>
+                    <div class="event-image">
+                        <span>🎯</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Marketeer's Melee</h3>
+                        <span class="event-category" style="color: #a29bfe;">Marketing</span>
+                        <p>Test your marketing skills in this fast-paced competition. Develop and present marketing strategies, analyze case studies, and compete with the best marketing minds in this challenging event.</p>
+                        <div class="event-action">
+                            <a href="https://forms.gle/MuNFGJJi4c5AkUPn6" target="_blank" class="register-btn">Register Now →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 5: Workforce Wizard -->
+                <div class="event-card" style="--gradient-start: #ff9a9e; --gradient-end: #fad0c4;">
+                    <div class="event-card-gradient"></div>
+                    <div class="event-image">
+                        <span>🧙</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Workforce Wizard</h3>
+                        <span class="event-category" style="color: #fd79a8;">HR & Strategy</span>
+                        <p>Master the art of human resource management and organizational strategy. Tackle real-world HR challenges, from talent acquisition to employee engagement and organizational development.</p>
+                        <div class="event-action">
+                            <a href="https://forms.gle/NfkgurZNELNC2fHTA" target="_blank" class="register-btn">Register Now →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MONETA 2025</h3>
+                    <p>Annual Financial Market Festival</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p>Email: info@moneta2025.com</p>
+                    <p>Phone: +91 XXXXXXXXXX</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MONETA. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <!-- Footer will be inserted here by footer.js -->
+    <script src="js/footer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
